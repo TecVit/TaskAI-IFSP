@@ -316,4 +316,22 @@
     window.getDisciplinesOfStudent = getDisciplinesOfStudent;
 
     getDisciplinesOfStudent();
+
+    // Outras funcionalidades
+    async function baixarPDFComoBase64(url) {
+        const response = await fetch(url);
+        const blob = await response.blob();
+
+        return await new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                resolve(reader.result);
+            };
+            reader.onerror = reject;
+            reader.readAsDataURL(blob);
+        });
+    }
+
+    baixarPDFComoBase64("https://moodle.arq.ifsp.edu.br/mod/resource/view.php?id=107708").then(res => console.log(res));
+    window.baixarPDFComoBase64 = baixarPDFComoBase64;
 })();
