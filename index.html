@@ -36,7 +36,7 @@
 
         <div class="content">
 
-            <h1>Disciplinas</h1>
+            <h1 class="subtitle">Disciplinas</h1>
 
             <div class="list">
                 
@@ -70,6 +70,7 @@
                 container.classList.add("hidden");
             }
         }
+        window.changeStatusPopup = changeStatusPopup;
 
         // List Items => Disciplines
         const addContentDisciplines = (disciplinesList) => {
@@ -79,16 +80,18 @@
                     <img src="${discipline.courseimage}">
                     <div class="text">
                         <h1>${discipline.fullname}</h1>
-                        <a href="${discipline.viewurl}">Mostrar tarefas</a>
+                        <a onclick="getTaskOfDiscipline(${discipline.id})">Mostrar tarefas</a>
                     </div>
                 </div>
             `);
 
             list.innerHTML = itemsHTML.join('');
         }
+        window.addContentDisciplines = addContentDisciplines;
 
         // List Items => Tasks
         const addContentTasks = (tasksList) => {
+            const subtitle = document.querySelector('.subtitle');
             const list = document.querySelector('.container-script .content .list');
             const itemsHTML = tasksList.map((discipline) => `
                 <div class="item">
@@ -98,9 +101,11 @@
                     </div>
                 </div>
             `);
-
+            
+            subtitle.textContent = "Tarefas";
             list.innerHTML = itemsHTML.join('');
         }
+        window.addContentTasks = addContentTasks;
 
         // Coletar as tarefas da disciplina
         const getTaskOfDiscipline = async (id) => {
@@ -154,6 +159,7 @@
                 console.error('Sesskey não encontrado');
             }
         };
+        window.getTaskOfDiscipline = getTaskOfDiscipline;
         
         // Coletar disciplinas do estudante
         const getDisciplinesOfStudent = () => {
@@ -181,7 +187,7 @@
                     const data = r.json();
                     const disciplines = data[0].data.courses;
                     addContentDisciplines(disciplines);
-                    console.log(data);
+                    // console.log(data);
                 })
                 .then(console.log)
                 .catch(console.error);
@@ -189,10 +195,10 @@
                 console.error('Sesskey não encontrado');
             }
         };
+        window.getDisciplinesOfStudent = getDisciplinesOfStudent;
 
         // Começo do Script
         getDisciplinesOfStudent();
-
 
         // Outras funcionalidades
         async function baixarPDFComoBase64(url) {
@@ -208,8 +214,7 @@
                 reader.readAsDataURL(blob);
             });
         }
-
-        baixarPDFComoBase64("https://moodle.arq.ifsp.edu.br/mod/resource/view.php?id=107708").then(res => console.log(res));
+        window.baixarPDFComoBase64 = baixarPDFComoBase64;
 
      </script>
 
